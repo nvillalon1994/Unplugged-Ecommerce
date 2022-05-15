@@ -23,6 +23,7 @@ export default function Page({children}) {
           dispatch(getCart(result.displayName))
         }else{
           dispatch(logout())
+          
         }
       })
     },[])

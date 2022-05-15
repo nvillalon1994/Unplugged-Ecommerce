@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import NavBar2 from '../../components/NavBar2'
+
 import {collection,getDocs} from 'firebase/firestore'
 import { decreaseAmount, getCart, increaseAmount, removeFromCart,totalPrice } from '../../features/cart'
 import { database } from '../../config/firebase'
+
+import {FaTrashAlt} from 'react-icons/fa'
+import {GrAddCircle} from 'react-icons/gr'
+import {IoIosRemoveCircleOutline,IoIosAddCircleOutline} from 'react-icons/io'
 
 export default function Index(){
     
@@ -15,8 +19,8 @@ export default function Index(){
     const aumentarCantidad =(item)=>{
         
         dispatch(increaseAmount({item,name}))
-        dispatch(getCart(name))
-        // dispatch(totalPrice())
+        
+        
         
     }
 
@@ -24,14 +28,14 @@ export default function Index(){
         if(item.cantidad>1){
             
             dispatch(decreaseAmount({item,name}))
-            dispatch(getCart(name))
+            
             // dispatch(totalPrice())
             
         }
         else{
             dispatch(removeFromCart({id:item.id,name}))
-            dispatch(totalPrice())
-            dispatch(getCart(name))
+            // dispatch(totalPrice())
+            
         }
         
     }
@@ -39,47 +43,70 @@ export default function Index(){
     
         console.log(id)
         dispatch(removeFromCart({id,name}))
-        dispatch(getCart(name))
-        dispatch(totalPrice())
+        
+        
       }
-    // const totalPrice2=()=>{
-        
-    //     let totalArray=[];
-    //     items.map((item)=>{
-    //     totalArray.push(item.price*item.cantidad)
-    //     })
-        
-        
-    //     let sum = 0;
-    //     for (let i = 0; i < totalArray.length; i++) {
-    //         sum += parseInt(totalArray[i]);
-    //     }
-    //     setTotal(sum)
-        
-    // }
+ 
     
-    
+      dispatch(totalPrice())
     useEffect(() => {
         dispatch(totalPrice())
       }, []);
   return (
     <>
        
-        {items.length===0?<h1>El carrito esta vacío</h1>:<h1>Productos en carrito: {items.length}</h1>}
+        {items.length===0?<h1 className='titleCart'>El carrito esta vacío</h1>:
+        <div>
+            <h1 className='titleCart'>Productos en carrito: {items.length}</h1>
+            <table>
+                <thead>
+                    <tr>
+                        
+                        <th>Producto</th>
+                        <th>Precio por unidad</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {items.map((item)=><tr key={item.id}>
+                        
+                        <td className='carritoProduct'>
+                            <img src={item.image} alt={item.id} />
+                            <p>{item.name}</p>
+                        
+                        </td>
+                        <td>$ {item.price}</td>
+                        <td className='amount'>
+                            <button className='btn-amount' onClick={()=>{aumentarCantidad(item)}}><IoIosAddCircleOutline/></button>
+                            <span>{item.cantidad}</span>
+                            <button className='btn-amount' onClick={()=>{dismunuirCantidad(item)}}><IoIosRemoveCircleOutline/></button>
+                        </td>
+                        <td>$ {item.cantidad*item.price}</td>
+                        <td>
+                            <button className='btn-remove' onClick={()=>{removeProductFromCart(item.id)}}>
+                                <FaTrashAlt />
+                                
+                            </button>
+                        </td>
+                    
+                    </tr>)}
+                    <tr className='total'>
+                        <td></td>
+                        <td></td>
+                        
+                        <td>Total</td>
+                        <td>{total?<>$ {total}</>:<>$ 0</>}</td>
+                        <td><button>Pagar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>}
         
-        {items.map((item)=><div key={item.id}>
-            <p>{item.name}</p>
-            {/* <p>{item.desc1}</p> */}
-            <p> cantidad: {item.cantidad}</p>
-            <p> precio: {item.price}</p>
-            <p> id: {item.id}</p>
-            <button onClick={()=>{aumentarCantidad(item)}}>+</button>
-            <button onClick={()=>{dismunuirCantidad(item)}}>-</button>
-            <button className='btn-remove' onClick={()=>{removeProductFromCart(item.id)}}>Quitar del Carrito</button>
-            {/* <img src={item.image} alt="" /> */}
-        </div>)}
         
-        {/* {total?<h1>Total:{total}</h1>:<></>} */}
+        
+        
     </>
   )
 }

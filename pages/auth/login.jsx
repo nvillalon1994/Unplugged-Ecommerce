@@ -107,7 +107,7 @@ export default function Login() {
                 }
               </button>
               
-              {/* <StyledFirebaseAuth uiConfig={config} firebaseAuth={auth}/> */}
+              <StyledFirebaseAuth uiConfig={config} firebaseAuth={auth}/>
             </article>
             </article>
             

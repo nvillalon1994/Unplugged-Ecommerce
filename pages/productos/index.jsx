@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 // import { AnimatePresence, motion } from "framer-motion"
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart,getCart,increaseAmount,removeFromCart } from '../../features/cart'
-import NavBar from '../../components/NavBar2'
+
 import { BsFillCartPlusFill} from 'react-icons/bs';
 import {TiShoppingCart} from 'react-icons/ti';
 // import { ToastContainer, toast } from 'react-toastify';
@@ -43,6 +43,7 @@ export default function Productos({productos}) {
     progress: undefined,
     });
   const items = useSelector(state=>state.cart.items)
+  
   const {logged,name,profilePic} = useSelector(state=>state.auth)
   const [selectedId, setSelectedId] = useState(null)
   // console.log(items===[])
@@ -57,7 +58,7 @@ export default function Productos({productos}) {
         const addedProduct = {
           ...producto,
           ...{cantidad:1}}
-          dispatch(addToCart({addedProduct,user:name}))
+          dispatch(addToCart({addedProduct,user:name,items}))
           dispatch(getCart(name))
         
   }

@@ -25,7 +25,7 @@ export default function NavBar() {
       <div className='navBar_Container' >
         
         <div className='navBar'>
-        <Link href={"/productos"} passHref><Image src={logotipo} alt="logo" width={120}  height={60} /></Link>
+        <Link href={"/productos"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
           <input type="text" placeholder='Busca productos y mucho más' className='busquedaFilter'/>
           <ul className='linkRight'>
           
@@ -37,7 +37,7 @@ export default function NavBar() {
                 <img src={profilePic} alt="" />
                 
               </li>}
-            {logged?  <li onClick={logout}><FaSignOutAlt/></li>:<Link href={"/auth/login"}><li onClick={()=>{setShow(!show)}} >Iniciar Sesión </li></Link>}
+            {logged?  <li className='signOut' onClick={logout}><FaSignOutAlt/></li>:<Link href={"/auth/login"}><li className='btn-ingresar' onClick={()=>{setShow(!show)}} >Iniciar Sesión </li></Link>}
           </ul>
         </div>
         {/* {show&&

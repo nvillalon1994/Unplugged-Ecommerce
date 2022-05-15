@@ -3,13 +3,26 @@ import {database} from '../../config/firebase'
 import {addDoc, collection,deleteDoc,doc,getDocs,updateDoc} from 'firebase/firestore'
 import { async } from "@firebase/util";
 export const addToCart = createAsyncThunk("cart/addToCart",async(data,thunkAPI)=>{
-    console.log(data.addedProduct,data.user)
     
-    const col =collection(database,"cart",data.user, "items" )
-    const result = await addDoc(col,data.addedProduct)
+    
+    if(data.items.find(item => item.name ===data.addedProduct.name )){
+                console.log("existe")
+                data.items.map((item)=>{
+                    if(item.name===data.addedProduct.name){
+                        updateDoc(doc(database,"cart",data.user,"items",item.id),{cantidad:item.cantidad +1})
+                    }
+                })
+            }
+            else{
+                console.log("no existe")
+                const col =collection(database,"cart",data.user, "items" )
+                const result = await addDoc(col,data.addedProduct)
+                
+            }
+    
     
     return{
-        result
+        data
     }
 })
 
@@ -22,7 +35,7 @@ export const getCart = createAsyncThunk("cart/obtenerCarrito",async (data,thunkA
     snapshot.forEach(doc=>{
       carrito.push({...doc.data(),id:doc.id})
     })
-    console.log(carrito)
+    // console.log(carrito)
     return carrito
 })
 export const removeFromCart = createAsyncThunk("cart/removeFromCart",async (data,thunkAPI)=>{
@@ -38,13 +51,15 @@ export const increaseAmount =createAsyncThunk("cart/increaseAmount",async(data,t
     updateDoc(doc(database,"cart",data.name,"items",data.item.id),{
         cantidad:data.item.cantidad +1
     })
+    return data
 })
-export const decreaseAmount =createAsyncThunk("cart/increaseAmount",async(data,thunkAPI)=>{
+export const decreaseAmount =createAsyncThunk("cart/decreaseAmount",async(data,thunkAPI)=>{
     console.log(data.item.id)
     
     updateDoc(doc(database,"cart",data.name,"items",data.item.id),{
         cantidad:data.item.cantidad -1
     })
+    return data
 })
 
 const cartSlice = createSlice({
@@ -84,7 +99,7 @@ const cartSlice = createSlice({
             
         //     state.items = state.items.filter(item=>item.id!==id)
         // },
-        // increaseAmount:(state,action)=>{
+        // increaseAmount2:(state,action)=>{
             
         //     const id = action.payload
             
@@ -95,7 +110,7 @@ const cartSlice = createSlice({
         //         }
         //     })
         // },
-        // decreaseAmount:(state,action)=>{
+        // decreaseAmount2:(state,action)=>{
             
         //     const id = action.payload
             
@@ -113,10 +128,10 @@ const cartSlice = createSlice({
         //     })
         // },
         totalPrice:(state,action)=>{
-            
+            console.log("se ejecuta")
             let totalArray=[];
             state.items.map((item)=>{
-            totalArray.push(item.price*item.cantidad)
+                totalArray.push(item.price*item.cantidad)
             })
             
             
@@ -133,16 +148,13 @@ const cartSlice = createSlice({
         
     },
     extraReducers(builder){
-
+        //ADD TO CART
         builder.addCase(addToCart.pending,(state,action)=>{
             state.loading = true
 
         })
         builder.addCase(addToCart.fulfilled,(state,action)=>{
-                state.loading = false
-                
-                
-                
+                state.loading = false       
         })
         builder.addCase(addToCart.rejected,(state,action)=>{
             state.loading = true
@@ -150,7 +162,7 @@ const cartSlice = createSlice({
         })
 
 
-
+        //TOMAR CARRITO
         builder.addCase(getCart.pending,(state,action)=>{
             state.loading = true
         })
@@ -162,7 +174,7 @@ const cartSlice = createSlice({
             state.loading = false
         })
 
-        
+        //REMOVER DEL CARRITO
         builder.addCase(removeFromCart.pending,(state,action)=>{
             state.loading = true
         })
@@ -176,6 +188,49 @@ const cartSlice = createSlice({
         builder.addCase(removeFromCart.rejected,(state,action)=>{
             state.loading = false
         })
+        //Increase amunt
+        builder.addCase(increaseAmount.pending,(state,action)=>{
+            state.loading = true
+        })
+        builder.addCase(increaseAmount.fulfilled,(state,action)=>{
+            const id = action.payload.item.id
+            totalPrice()
+            state.items.map((item)=>{
+                        if(item.id===id){
+                            item.cantidad=item.cantidad +1
+        
+                        }
+                    })
+            
+        })
+        builder.addCase(increaseAmount.rejected,(state,action)=>{
+            state.loading = false
+        })
+
+        //Decrease amount
+
+        builder.addCase(decreaseAmount.pending,(state,action)=>{
+            state.loading = true
+        })
+        builder.addCase(decreaseAmount.fulfilled,(state,action)=>{
+            const id = action.payload.item.id
+            
+            state.items.map((item)=>{
+                        if(item.id===id){
+                            item.cantidad=item.cantidad -1
+
+        
+                        }
+                    })
+            
+            
+        })
+        builder.addCase(decreaseAmount.rejected,(state,action)=>{
+            state.loading = false
+        })
+
+        
+
     }
 
 })
