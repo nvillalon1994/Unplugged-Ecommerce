@@ -11,7 +11,19 @@ body {
     
     box-sizing: border-box;
 }
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
 
+body::-webkit-scrollbar-track {
+  background: #056699;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #00BFE6;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid #00ffaa;  /* creates padding around scroll thumb */
+}
 
 
 .products-container{
@@ -54,8 +66,8 @@ body {
   gap:8px
 }
 .userNav img{
-  width: 42px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius:200px ;
 }
 .btn-ingresar{
@@ -159,6 +171,7 @@ nav ul li:hover{
   
   
 }
+
 .product{
   position: relative;
   background-color: rgb(5, 102, 153,0.8);
@@ -305,8 +318,8 @@ nav ul li:hover{
 .cart-nav{
   position: absolute;
   right: 5px;
-  top:55px;
-  background-color: #60c0d3;
+  top:80px;
+  background-color: rgb(7, 141, 213,0.8);
   padding: 20px;
   border-radius: 10px;
   
@@ -562,7 +575,9 @@ table ,th{
 }
 .textSoloProduct h1{
   font-size: 40px;
-  margin: 10px 0 50px 0;
+  margin: 10px 0 10px 0;
+  height: 170px;
+  overflow: hidden;
   
   
 }
@@ -571,6 +586,8 @@ table ,th{
   text-shadow: 2px 2px 4px white;
   font-size: 40px;
   margin: 0 0 40px 0;
+  
+
 
 }
 .textSoloProduct p{
@@ -579,6 +596,8 @@ table ,th{
   text-align: justify;
   letter-spacing: 1px;
   margin: 0 0 40px 0;
+  height: 110px;
+  overflow: hidden;
 
 }
 .textSoloProduct button{
@@ -610,6 +629,9 @@ table ,th{
   border-radius: 8px;
 }
 .imageSoloProduct img {
+
+  max-width: 280px;
+  max-height: 500px;
   margin: auto;
 }
 .aboutProduct{
@@ -629,4 +651,94 @@ table ,th{
   text-shadow:2px 2px 5px #00ffaa;
   text-align: left;
   margin-left: 50px;
+}
+/* CAROUSEL */
+.embla {
+  overflow: hidden;
+  
+  position: relative;
+  background-color: rgb(0, 0, 0,0.5);
+  padding: 20px;
+  max-width:100vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  margin-left: 8vw;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 100%;
+  padding-left: 14px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.embla__slide img{
+  width: 78vw;
+  height: 300px;
+}
+
+.productLink{
+
+  color: white;
+  font-size: 20px;
+  text-shadow: 1px 1px 6px black;
+  background-color: #00ffaa;
+  border: transparent;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  display: flex;
+  margin:20px auto;
+}
+.productLink:hover{
+  box-shadow: 2px 2px 6px white;
+}
+.container2{
+  width: 100vw;
+  display: flex;
+  
+  background-color: green;
+  
+  
+  
+}
+.products_Container2{
+  /* height: 100vh; */
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3,1fr);
+  
+  gap: 40px;
+  /* margin-left:160px ; */
+  /* gap: 40px; */
+  
+  
+}
+.container2{
+  width: 96vw;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  
+  
+  
+}
+.title2{
+  font-size: 40px;
+  color: white;
+  text-shadow:2px 2px 5px #00ffaa;
+  text-align: center;
+  margin: 50px  ;
 }

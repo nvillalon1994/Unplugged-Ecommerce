@@ -25,7 +25,7 @@ export default function NavBar() {
       <div className='navBar_Container' >
         
         <div className='navBar'>
-        <Link href={"/productos"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
+        <Link href={"/"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
           <input type="text" placeholder='Busca productos y mucho más' className='busquedaFilter'/>
           <ul className='linkRight'>
           

@@ -54,7 +54,7 @@ export default function Productos({productos}) {
   
   const addProductoToCart =(producto)=>{
     // console.log(id)
-        console.log(name)
+        
         const addedProduct = {
           ...producto,
           ...{cantidad:1}}
@@ -68,6 +68,7 @@ export default function Productos({productos}) {
   const [categoria,setCategoria] = useState("todos")
   // console.log(categoria)
   const filtrar_categoria=(categoria)=>{
+    console.log(categoria)
     let newProducts =[]
     if(categoria==="todos"){
       setProducts(productos)
@@ -97,18 +98,18 @@ export default function Productos({productos}) {
       
       
       {/* <NavBar/> */}
-      <div className='navBar_Container' >
+      <article className='navBar_Container' >
         
         <nav>
           <ul>
             <li onClick={()=>{filtrar_categoria("todos")}}>Todos los productos</li>
             <li onClick={()=>{filtrar_categoria("guitar")}}>Guitarras</li>
             <li onClick={()=>{filtrar_categoria("bass")}}>Bajos</li>
-            <li onClick={()=>{setCategoria("guitarras")}}>Baterías</li>
-            <li onClick={()=>{setCategoria("guitarras")}}>Amplificadores</li>
+            <li onClick={()=>{filtrar_categoria("bateria")}}>Baterías</li>
+            <li onClick={()=>{filtrar_categoria("amplificador")}}>Amplificadores</li>
           </ul>
         </nav>
-      </div>
+      </article>
       <div className='container'>
       <div className='filtros_container' data-aos="fade-right">
         <h1 id="titulo_filtro">Filtros</h1>
@@ -131,10 +132,10 @@ export default function Productos({productos}) {
       </div>
       <div className='products_Container'>
         
-        {products.map(producto=><div className='product2' data-aos="zoom-in"
+        {products.map((producto)=><div className='product2' data-aos="zoom-in"
      
-     data-aos-delay="100"
-     data-aos-offset="0"  key={producto.id}>
+        data-aos-delay="100"
+        data-aos-offset="0"  key={producto.id}>
             <Link  href={"/productos/" + producto.id} >
               <div  className='product' >
                 

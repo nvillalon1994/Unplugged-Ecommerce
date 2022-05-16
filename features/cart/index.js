@@ -15,6 +15,7 @@ export const addToCart = createAsyncThunk("cart/addToCart",async(data,thunkAPI)=
             }
             else{
                 console.log("no existe")
+                
                 const col =collection(database,"cart",data.user, "items" )
                 const result = await addDoc(col,data.addedProduct)
                 
