@@ -36,7 +36,7 @@ export async function getStaticProps(){
   
 }
 export default function Home({productos}) {
-  const {name} = useSelector(state=>state.auth )
+  const {name,id} = useSelector(state=>state.auth )
   const items = useSelector(state=>state.cart.items)
   const dispatch =useDispatch()
   
@@ -67,9 +67,17 @@ export default function Home({productos}) {
       // Embla API is ready
     }
   }, [emblaApi])
-    
+    // const pay = ()=>{
+    //   fetch("/api/payment/stripe-checkout",{
+    //     method:"POST"
+    //   })
+    //   .then(result=>result.json())
+    //   .then(data)
+    // }
   return (
     <main >
+      <a href="/api/payment/stripe-checkout">Pagar</a>
+      {/* <button onClick={pay} >Pagar</button> */}
       <div className="embla" ref={emblaRef}>
         <div className="embla__container">
         

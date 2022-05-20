@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {collection,getDocs} from 'firebase/firestore'
-import { decreaseAmount, getCart, increaseAmount, removeFromCart,totalPrice } from '../../features/cart'
+import { decreaseAmount, getCart, increaseAmount, removeFromCart,totalPrice ,removeCart} from '../../features/cart'
 import { database } from '../../config/firebase'
 
 import {FaTrashAlt} from 'react-icons/fa'
 import {GrAddCircle} from 'react-icons/gr'
 import {IoIosRemoveCircleOutline,IoIosAddCircleOutline} from 'react-icons/io'
-
+import {PayPalButtons, PayPalScriptProvider,} from '@paypal/react-paypal-js'
+import axios from 'axios'
+import Paypal from '../../components/PayPalCheckoutButton'
+import PayPalCheckoutButton from '../../components/PayPalCheckoutButton'
 export default function Index(){
     
     const items = useSelector(state=>state.cart.items)
     const total = useSelector(state=>state.cart.total)
-    const {name} = useSelector(state=>state.auth)
+    const {name,id} = useSelector(state=>state.auth)
     const dispatch = useDispatch()
 
     const aumentarCantidad =(item)=>{
@@ -45,13 +48,29 @@ export default function Index(){
         dispatch(removeFromCart({id,name}))
         
         
-      }
+    }
+    const removeCart2=()=>{
+    
+        
+        dispatch(removeCart({name,items}))
+        
+        
+    }
  
     
       dispatch(totalPrice())
     useEffect(() => {
         dispatch(totalPrice())
       }, []);
+      const createOrder = async() =>{
+        const result = await axios.post("/api/payment/createOrder")
+        return result.data.orderID
+      }
+      const onApprove =(data)=>{
+        console.log(data)
+      }
+      console.log(typeof(total))
+      const [checkout,setCheckOut]= useState(false)
   return (
     <>
        
@@ -86,9 +105,11 @@ export default function Index(){
                         <td>$ {item.cantidad*item.price}</td>
                         <td>
                             <button className='btn-remove' onClick={()=>{removeProductFromCart(item.id)}}>
+                            
                                 <FaTrashAlt />
                                 
                             </button>
+                            
                         </td>
                     
                     </tr>)}
@@ -98,10 +119,14 @@ export default function Index(){
                         
                         <td>Total</td>
                         <td>{total?<>$ {total}</>:<>$ 0</>}</td>
-                        <td><button>Pagar</button></td>
+                        <td>
+                            <PayPalCheckoutButton items={items} total ={total}/>
+                        </td>
+                       
                     </tr>
                 </tbody>
             </table>
+           
         </div>}
         
         

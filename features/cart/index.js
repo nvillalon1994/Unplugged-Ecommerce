@@ -1,9 +1,9 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import {database} from '../../config/firebase'
-import {addDoc, collection,deleteDoc,doc,getDocs,updateDoc} from 'firebase/firestore'
+import {addDoc, collection,deleteDoc,doc,getDocs,updateDoc,docs} from 'firebase/firestore'
 import { async } from "@firebase/util";
 export const addToCart = createAsyncThunk("cart/addToCart",async(data,thunkAPI)=>{
-    
+    console.log(data.user)
     
     if(data.items.find(item => item.name ===data.addedProduct.name )){
                 console.log("existe")
@@ -12,8 +12,7 @@ export const addToCart = createAsyncThunk("cart/addToCart",async(data,thunkAPI)=
                         updateDoc(doc(database,"cart",data.user,"items",item.id),{cantidad:item.cantidad +1})
                     }
                 })
-            }
-            else{
+    }else{
                 console.log("no existe")
                 
                 const col =collection(database,"cart",data.user, "items" )
@@ -27,6 +26,8 @@ export const addToCart = createAsyncThunk("cart/addToCart",async(data,thunkAPI)=
     }
 })
 
+
+
 export const getCart = createAsyncThunk("cart/obtenerCarrito",async (data,thunkAPI)=>{
     
     const col = collection(database,"cart",data,"items")
@@ -39,12 +40,26 @@ export const getCart = createAsyncThunk("cart/obtenerCarrito",async (data,thunkA
     // console.log(carrito)
     return carrito
 })
+
+
+
+
 export const removeFromCart = createAsyncThunk("cart/removeFromCart",async (data,thunkAPI)=>{
     console.log(data)
-    const docRef = doc(database,"cart",data.name,"items",data.id)
+    deleteDoc(doc(database,"cart",data.name,"items",data.id))
     
-    deleteDoc(docRef)
+    
     return data.id
+})
+export const removeCart = createAsyncThunk("cart/removeCart",async (data,thunkAPI)=>{
+    console.log(data.items)
+    data.items.map((item)=>{
+        deleteDoc(doc(database,"cart",data.name,"items",item.id))
+    })
+    // await deleteDoc(doc(database,"cart",data.name))
+    
+    
+    return data
 })
 export const increaseAmount =createAsyncThunk("cart/increaseAmount",async(data,thunkAPI)=>{
     console.log(data.item.id)
@@ -163,17 +178,19 @@ const cartSlice = createSlice({
         })
 
 
-        //TOMAR CARRITO
+        //OBTENER CARRITO
         builder.addCase(getCart.pending,(state,action)=>{
             state.loading = true
         })
         builder.addCase(getCart.fulfilled,(state,action)=>{
-            state.loading= true
+            state.loading= false
             state.items=action.payload
         })
         builder.addCase(getCart.rejected,(state,action)=>{
             state.loading = false
         })
+
+
 
         //REMOVER DEL CARRITO
         builder.addCase(removeFromCart.pending,(state,action)=>{
@@ -187,6 +204,19 @@ const cartSlice = createSlice({
             
         })
         builder.addCase(removeFromCart.rejected,(state,action)=>{
+            state.loading = false
+        })
+        
+        builder.addCase(removeCart.pending,(state,action)=>{
+            state.loading = true
+        })
+        builder.addCase(removeCart.fulfilled,(state,action)=>{
+            
+            
+            state.items=[]
+            state.total=0
+        })
+        builder.addCase(removeCart.rejected,(state,action)=>{
             state.loading = false
         })
         //Increase amunt

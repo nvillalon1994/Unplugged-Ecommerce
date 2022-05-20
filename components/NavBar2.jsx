@@ -19,6 +19,11 @@ export default function NavBar() {
         signOut(auth)
     }
     
+    const filtroBusqueda =(event)=>{
+      event.preventDefault()
+      const {filtroBusqueda}= event.target
+      console.log(filtroBusqueda.value)
+    }
     
   return (
     
@@ -26,7 +31,11 @@ export default function NavBar() {
         
         <div className='navBar'>
         <Link href={"/"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
-          <input type="text" placeholder='Busca productos y mucho más' className='busquedaFilter'/>
+          <form onSubmit={filtroBusqueda}>
+            <input type="text" placeholder='Busca productos y mucho más' className='busquedaFilter' name='filtroBusqueda'/>
+            {/* <button>Buscar</button> */}
+          </form>
+          
           <ul className='linkRight'>
           
             

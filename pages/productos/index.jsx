@@ -50,11 +50,12 @@ export default function Productos({productos}) {
   // console.log(items)
   const [blockButton,setBlockButton]= useState(false)
   const dispatch = useDispatch()
-
+  console.log(name)
+   
   
   const addProductoToCart =(producto)=>{
     // console.log(id)
-        
+        console.log(name)
         const addedProduct = {
           ...producto,
           ...{cantidad:1}}
@@ -96,7 +97,7 @@ export default function Productos({productos}) {
     
     <section className='products-container'>
       
-      
+      <Link href="/productos/create">Crear producto</Link>
       {/* <NavBar/> */}
       <article className='navBar_Container' >
         
