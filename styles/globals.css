@@ -386,6 +386,7 @@ nav ul li:hover{
   height: 89.4vh;
   
   
+  
 }
 .loginImg{
   position: relative;
@@ -417,6 +418,15 @@ nav ul li:hover{
   padding: 10px;
   margin: 4px 2px;
   border-radius: 4px;
+  color: white;
+  
+}
+.loginForm form input::after{
+  background-color: rgb(0, 0, 0,0.5);
+  padding: 10px;
+  margin: 4px 2px;
+  border-radius: 4px;
+  color: white;
   
 }
 
@@ -744,4 +754,3 @@ table ,th{
   text-align: center;
   margin: 50px  ;
 }
-
