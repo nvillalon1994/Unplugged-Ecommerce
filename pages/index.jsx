@@ -76,8 +76,8 @@ export default function Home({productos}) {
     // }
   return (
     <main >
-      <a href="/api/payment/stripe-checkout">Pagar</a>
-      {/* <button onClick={pay} >Pagar</button> */}
+      
+      
       <div className="embla" ref={emblaRef}>
         <div className="embla__container">
         

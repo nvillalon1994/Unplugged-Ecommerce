@@ -38,9 +38,15 @@ export default function PayPalCheckoutButton() {
         
     }
     if(paidFor){
-        alert("Gracias por su compra")
+        
         dispatch(removeCart({name,items}))
-        // router.replace("/")
+        
+        alert("Gracias por su compra")
+        setTimeout(function(){router.replace("/")},2000)
+        
+        
+        
+        
     }
     if(error) {
         alert(error)

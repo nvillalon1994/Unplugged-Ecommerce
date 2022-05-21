@@ -318,12 +318,12 @@ nav ul li:hover{
 .cart-nav{
   position: absolute;
   right: 5px;
-  top:80px;
+  top:95px;
   background-color: rgb(7, 141, 213,0.8);
   padding: 20px;
   border-radius: 10px;
   
-  z-index: 3;
+  z-index: 4;
   width: 300px;
   box-shadow: 2px 2px 4px ;
   display: flex;
@@ -413,11 +413,13 @@ nav ul li:hover{
   
 }
 .loginForm form input{
+  background-color: rgb(0, 0, 0,0.5);
   padding: 10px;
   margin: 4px 2px;
   border-radius: 4px;
   
 }
+
 .loginForm form button{
   padding: 10px;
   margin: 4px 2px;
@@ -448,7 +450,7 @@ nav ul li:hover{
   text-align: center;
 }
 .loginForm h1{
-  font-size: 35px;
+  font-size: 40px;
   text-align: center;
   color: white;
   text-shadow: 2px 2px 4px black;
@@ -742,3 +744,4 @@ table ,th{
   text-align: center;
   margin: 50px  ;
 }
+

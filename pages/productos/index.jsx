@@ -89,6 +89,61 @@ export default function Productos({productos}) {
     }
     
   }
+  const filtrar_marca=(categoria,marca)=>{
+    console.log(categoria)
+    let newProducts =[]
+    if(categoria==="todos"){
+      setProducts(productos)
+      setCategoria(categoria)
+    }
+    else{
+      productos.map((product)=>{
+      
+        if(product.categoria===categoria&&product.marca===marca){
+          
+          newProducts.push(product)
+        }
+        
+        setProducts(newProducts)
+        setCategoria(categoria)
+      })
+    }
+    
+  }
+  const filtrar_estilo=(categoria,estilo)=>{
+    console.log(categoria)
+    let newProducts =[]
+    if(categoria==="todos"){
+      setProducts(productos)
+      setCategoria(categoria)
+    }
+    else{
+      productos.map((product)=>{
+      
+        if(product.categoria===categoria&&product.estilo===estilo){
+          
+          newProducts.push(product)
+        }
+        
+        setProducts(newProducts)
+        setCategoria(categoria)
+      })
+    }
+    
+  }
+  const filtrar_precio=(precio)=>{
+    console.log(categoria)
+    let newProducts =[]
+    productos.map((product)=>{
+      if(product.price<precio&&(product.categoria===categoria||categoria==="todos")){
+        newProducts.push(product)
+        console.log("es menor a 2000")
+      }
+      setProducts(newProducts)
+    })
+    
+    
+  }
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -97,7 +152,7 @@ export default function Productos({productos}) {
     
     <section className='products-container'>
       
-      <Link href="/productos/create">Crear producto</Link>
+      
       {/* <NavBar/> */}
       <article className='navBar_Container' >
         
@@ -114,19 +169,36 @@ export default function Productos({productos}) {
       <div className='container'>
       <div className='filtros_container' data-aos="fade-right">
         <h1 id="titulo_filtro">Filtros</h1>
-        <h1>Marca</h1>
-        <p>Fender</p>
-        <p>Gibson</p>
-        <h1>Estilo</h1>
-        <p>Stratocaster</p>
-        <p>Telecaster</p>
+        {categoria==="guitar"?
+        <div>
+            <h1>Marca(Guitarras)</h1>
+            <p onClick={()=>{filtrar_marca("guitar","fender")}}>Fender</p>
+            <p onClick={()=>{filtrar_marca("guitar","Gibson")}}>Gibson</p>
+            
+            <h1>Estilo</h1>
+            <p onClick={()=>{filtrar_estilo("guitar","strato")}}>Stratocaster</p>
+            <p onClick={()=>{filtrar_estilo("guitar","tele")}}>Telecaster</p>
+            <p onClick={()=>{filtrar_estilo("guitar","jaguar")}}>Jaguar</p>
+        </div>:<></>}
+        
+        {categoria==="bass"?
+        <div>
+            <h1>Marca(Bajos)</h1>
+            <p onClick={()=>{filtrar_marca("bass","fender")}}>Fender</p>
+            <p onClick={()=>{filtrar_marca("bass","Gibson")}}>Gibson</p>
+            
+            <h1>Estilo</h1>
+            <p onClick={()=>{filtrar_estilo("bass","jazz")}}>Jazz Bass</p>
+            <p onClick={()=>{filtrar_estilo("bass","precision")}}>Precisión</p>
+            
+        </div>:<></>}
+        
         <h1>Filtrar por precio</h1>
-        <div className='filtro_precio'>
-          <input type="number" placeholder='Minimo'/> 
-          <span>a</span>
-          <input type="number" placeholder='Maximo'/>
-          <button> {">"} </button>
-        </div>
+        
+        <p onClick={()=>{filtrar_precio(2000)}}>Menos de 2000</p>
+        <p onClick={()=>{filtrar_precio(3000)}}>Menos de 3000</p>
+          
+         
         
         
         

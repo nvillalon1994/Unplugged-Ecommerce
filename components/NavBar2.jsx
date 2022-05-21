@@ -31,10 +31,7 @@ export default function NavBar() {
         
         <div className='navBar'>
         <Link href={"/"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
-          <form onSubmit={filtroBusqueda}>
-            <input type="text" placeholder='Busca productos y mucho más' className='busquedaFilter' name='filtroBusqueda'/>
-            {/* <button>Buscar</button> */}
-          </form>
+          
           
           <ul className='linkRight'>
           
@@ -44,7 +41,7 @@ export default function NavBar() {
             {logged&&
               <li className='userNav'>
                 <img src={profilePic} alt="" />
-                
+                <p>{name}</p>
               </li>}
             {logged?  <li className='signOut' onClick={logout}><FaSignOutAlt/></li>:<Link href={"/auth/login"}><li className='btn-ingresar' onClick={()=>{setShow(!show)}} >Iniciar Sesión </li></Link>}
           </ul>
