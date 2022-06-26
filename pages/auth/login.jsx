@@ -81,6 +81,7 @@ export default function Login() {
      
               data-aos-delay="100"
               data-aos-offset="0">
+                
               <Image  src={login2} width={1050} height={550} alt="foto"/>
               <article className='loginForm'>
               <h1>{isLogin?"Inicia Sesión":"Registrate"}</h1>

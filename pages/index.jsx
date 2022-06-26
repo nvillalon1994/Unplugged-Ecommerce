@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 // import Slider from 'infinite-react-carousel';
+
 import foto1 from './images/img1.jpg'
 import { database } from '../config/firebase'
 import {collection,getDocs} from 'firebase/firestore'
@@ -57,7 +58,7 @@ export default function Home({productos}) {
 
 
   
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true },[Autoplay( {delay: 3000})])
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true,skipSnaps: false },[Autoplay( {delay: 3000})])
   // const [emblaRef] = useEmblaCarousel()
   useEffect(() => {
     
@@ -82,25 +83,27 @@ export default function Home({productos}) {
         <div className="embla__container">
         
          
-          <div className="embla__slide"><img src="https://www.lueschermusik.ch/srv/dr/_ts_1603630595545_8cdb6e0/rn_125242/args.pic/de/Vintera_Guitars_Banner.jpg"/></div>
-          <div className="embla__slide"><img src="https://sc1.musik-produktiv.com/img/header/brands/Squier-by-Fender.jpg"/></div>
-          <div className="embla__slide"><img src="https://cdn11.bigcommerce.com/s-yqxwyeh/product_images/uploaded_images/ibanez-banner.jpg"/></div>
-          <div className="embla__slide"><img src="https://www.theartsmusicstore.com/wp-content/uploads/2019/01/Gibson-Guitars-Page-Banner-2.jpg"/></div>
+          <div className="embla__slide"><img src="https://static.guitarcenter.com/static/gc/selects/2022/d-home/gc-md-hf-start-the-fireworks-early-06-22-22.jpg"/></div>
+          <div className="embla__slide"><img src="https://static.guitarcenter.com/static/gc/selects/2022/d-home/gc-md-hf-mpc-keys-06-23-22.jpg"/></div>
+          <div className="embla__slide"><img src="https://static.guitarcenter.com/static/gc/selects/2022/d-home/gc-md-hf-playing-with-pride-06-23-22.jpg"/></div>
+          <div className="embla__slide"><img src="https://static.guitarcenter.com/static/gc/selects/2022/d-home/gc-md-hf-lessons-06-23-22.jpg"/></div>
 
         </div>
+        <Link  href={"/productos"}><button className="productLink">Ver todos los productos</button></Link>
       </div>
-      <Link  href={"/productos"}><button className="productLink">Ver todos los productos</button></Link>
+      
+      
+      <section  className="container22">
+      
       <h1 className='title2'>Nuevos Arribos</h1>
-      <section  className="container2">
-        
         <section className='products_Container2'>
         {newProducts?.map((producto)=>
-        <div className='product2' data-aos="zoom-in" data-aos-delay="100" data-aos-offset="0"  key={producto.id}>
+        <div className='products1' data-aos="zoom-in" data-aos-delay="100" data-aos-offset="0"  key={producto.id}>
             <Link  href={"/productos/" + producto.id} >
-              <div  className='product' >
+              <div  className='product1' >
                 
-                <div className='img_product'>
-                  <img src={producto.image} alt="Picture of the author"/>
+                <div className='img_product1'>
+                  <img src={producto.image} alt=""/>
                 </div>
               
                 <p>$ {producto.price}</p>
@@ -110,22 +113,22 @@ export default function Home({productos}) {
               </div>
 
             </Link>
-            <button className='btn-add' onClick={()=>{addProductoToCart(producto)}}><BsFillCartPlusFill/></button>
+            <button className='btn-add1' onClick={()=>{addProductoToCart(producto)}}><BsFillCartPlusFill/></button>
             
           </div>)}
         </section>
         
       </section>
+      
+      <section  className="container22">
       <h1 className='title2'>Productos Populares</h1>
-      <section  className="container2">
-        
         <section className='products_Container2'>
         {popularProducts?.map((producto)=>
-        <div className='product2' data-aos="zoom-in" data-aos-delay="100" data-aos-offset="0"  key={producto.id}>
+        <div className='products1' data-aos="zoom-in" data-aos-delay="100" data-aos-offset="0"  key={producto.id}>
             <Link  href={"/productos/" + producto.id} >
-              <div  className='product' >
+              <div  className='product1' >
                 
-                <div className='img_product'>
+                <div className='img_product1'>
                   <img src={producto.image} alt="Picture of the author"/>
                 </div>
               
@@ -136,7 +139,7 @@ export default function Home({productos}) {
               </div>
 
             </Link>
-            <button className='btn-add' onClick={()=>{addProductoToCart(producto)}}><BsFillCartPlusFill/></button>
+            <button className='btn-add1' onClick={()=>{addProductoToCart(producto)}}><BsFillCartPlusFill/></button>
             
           </div>)}
         </section>

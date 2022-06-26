@@ -30,18 +30,21 @@ export default function NavBar() {
       <div className='navBar_Container' >
         
         <div className='navBar'>
-        <Link href={"/"} passHref><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
+          <div onClick={()=>{setShow2(false)}} >
+          <Link href={"/"} passHref ><Image src={logotipo} alt="logo" width={150}  height={60} /></Link>
+          </div>
+        
           
           
           <ul className='linkRight'>
           
             
 
-            {logged&&<li><TiShoppingCart onClick={()=>{setShow2(!show2)}} className='carrito'/>{items.length}</li>}
+            {logged&&<li className='carritoLink'><TiShoppingCart onClick={()=>{setShow2(!show2)}} className='carrito'/><span className='cartLength'  >{items.length}</span> </li>}
             {logged&&
               <li className='userNav'>
                 <img src={profilePic} alt="" />
-                <p>{name}</p>
+                <p className='name'>{name}</p>
               </li>}
             {logged?  <li className='signOut' onClick={logout}><FaSignOutAlt/></li>:<Link href={"/auth/login"}><li className='btn-ingresar' onClick={()=>{setShow(!show)}} >Iniciar Sesión </li></Link>}
           </ul>
@@ -57,7 +60,9 @@ export default function NavBar() {
             
              {items.map((item)=>
               <div key={item.id} className="product-navCart">
-                <img src={item.image} alt="" />
+                <div className='img-nacCart'>
+                  <img src={item.image} alt="" />
+                </div>
                 <div className='text-navCart'>
                   <h4>{item.name}</h4>
                   <p> $ {item.price}</p>

@@ -42,10 +42,12 @@ export default function Productos({productos}) {
     draggable: true,
     progress: undefined,
     });
+    
   const items = useSelector(state=>state.cart.items)
   
   const {logged,name,profilePic} = useSelector(state=>state.auth)
   const [selectedId, setSelectedId] = useState(null)
+  const [filtro,setFiltro] = useState(false)
   // console.log(items===[])
   // console.log(items)
   const [blockButton,setBlockButton]= useState(false)
@@ -156,13 +158,20 @@ export default function Productos({productos}) {
       {/* <NavBar/> */}
       <article className='navBar_Container' >
         
-        <nav>
+        <nav className='navFull'>
           <ul>
-            <li onClick={()=>{filtrar_categoria("todos")}}>Todos los productos</li>
-            <li onClick={()=>{filtrar_categoria("guitar")}}>Guitarras</li>
-            <li onClick={()=>{filtrar_categoria("bass")}}>Bajos</li>
-            <li onClick={()=>{filtrar_categoria("bateria")}}>Baterías</li>
-            <li onClick={()=>{filtrar_categoria("amplificador")}}>Amplificadores</li>
+            <li onClick={()=>{filtrar_categoria("todos");setFiltro(true)}}>Todos los productos</li>
+            <li onClick={()=>{filtrar_categoria("guitar");setFiltro(true)}}>Guitarras</li>
+            <li onClick={()=>{filtrar_categoria("bass");setFiltro(true)}}>Bajos</li>
+            <li onClick={()=>{filtrar_categoria("bateria");setFiltro(true)}}>Baterías</li>
+            <li onClick={()=>{filtrar_categoria("amplificador");setFiltro(true)}}>Amplificadores</li>
+            <li className='showFiltro' onClick={()=>{setFiltro(!filtro)}}>Filtros</li>
+          </ul>
+        </nav>
+        <nav className='navResponsive'>
+          <ul onClick={()=>{setFiltro(!filtro)}}>
+            <li >Filtros</li>
+            
           </ul>
         </nav>
       </article>
@@ -171,7 +180,7 @@ export default function Productos({productos}) {
         <h1 id="titulo_filtro">Filtros</h1>
         {categoria==="guitar"?
         <div>
-            <h1>Marca(Guitarras)</h1>
+            <h1>Marca</h1>
             <p onClick={()=>{filtrar_marca("guitar","fender")}}>Fender</p>
             <p onClick={()=>{filtrar_marca("guitar","Gibson")}}>Gibson</p>
             
@@ -183,7 +192,7 @@ export default function Productos({productos}) {
         
         {categoria==="bass"?
         <div>
-            <h1>Marca(Bajos)</h1>
+            <h1>Marca</h1>
             <p onClick={()=>{filtrar_marca("bass","fender")}}>Fender</p>
             <p onClick={()=>{filtrar_marca("bass","Gibson")}}>Gibson</p>
             
@@ -193,7 +202,7 @@ export default function Productos({productos}) {
             
         </div>:<></>}
         
-        <h1>Filtrar por precio</h1>
+        <h1>Precio</h1>
         
         <p onClick={()=>{filtrar_precio(2000)}}>Menos de 2000</p>
         <p onClick={()=>{filtrar_precio(3000)}}>Menos de 3000</p>
@@ -203,6 +212,7 @@ export default function Productos({productos}) {
         
         
       </div>
+      
       <div className='products_Container'>
         
         {products.map((producto)=><div className='product2' data-aos="zoom-in"
@@ -213,7 +223,7 @@ export default function Productos({productos}) {
               <div  className='product' >
                 
                 <div className='img_product'>
-                <img src={producto.image} alt="Picture of the author"/>
+                <img src={producto.image} layout="responsive"  alt="Picture of the author"/>
                 </div>
               
               <p>$ {producto.price}</p>
@@ -231,31 +241,54 @@ export default function Productos({productos}) {
           </div>
        )}
        
-        {/* {products.map(producto=>(<motion.div layoutId={producto.id} onClick={()=>{setSelectedId(producto)}} className='product'  key={producto.id}>
-            
-                
-              <motion.div className='img_product'>
-                  <img src={producto.image} alt=""/>
-              </motion.div>
-              
-              <motion.p>$ {producto.price}</motion.p>
-              <motion.h2>{producto.name}</motion.h2>
-              
-              
-              
-
-              
-              
-              
-
-            <button className='btn-add' onClick={()=>{addProductoToCart(producto)}}><BsFillCartPlusFill/></button>
-            <button className='btn-remove' onClick={()=>{removeProductFromCart(producto.id)}}>Quitar del Carrito</button>
-          </motion.div>
-       ))} */}
+       
        
        
        
       </div>
+      {filtro&&<div className='filtros_container2' data-aos="fade-right">
+        <h1 id="titulo_filtro">Filtros</h1>
+        <button className='close_Filter' onClick={()=>{setFiltro(false)}}>x</button>
+        {categoria==="guitar"?
+        <div>
+            <h1>Marca</h1>
+            <p onClick={()=>{filtrar_marca("guitar","fender");setFiltro(false)}}>Fender</p>
+            <p onClick={()=>{filtrar_marca("guitar","Gibson");setFiltro(false)}}>Gibson</p>
+            
+            <h1>Estilo</h1>
+            <p onClick={()=>{filtrar_estilo("guitar","strato");setFiltro(!filtro)}}>Stratocaster</p>
+            <p onClick={()=>{filtrar_estilo("guitar","tele");setFiltro(!filtro)}}>Telecaster</p>
+            <p onClick={()=>{filtrar_estilo("guitar","jaguar");setFiltro(!filtro)}}>Jaguar</p>
+        </div>:<></>}
+        
+        {categoria==="bass"?
+        <div>
+            <h1>Marca</h1>
+            <p onClick={()=>{filtrar_marca("bass","fender");setFiltro(!filtro)}}>Fender</p>
+            <p onClick={()=>{filtrar_marca("bass","Gibson");setFiltro(!filtro)}}>Gibson</p>
+            
+            <h1>Estilo</h1>
+            <p onClick={()=>{filtrar_estilo("bass","jazz");setFiltro(!filtro)}}>Jazz Bass</p>
+            <p onClick={()=>{filtrar_estilo("bass","precision");setFiltro(!filtro)}}>Precisión</p>
+            
+        </div>:<></>}
+        
+        <h1>Precio</h1>
+        
+        <p onClick={()=>{filtrar_precio(2000);setFiltro(!filtro)}}>Menos de 2000</p>
+        <p onClick={()=>{filtrar_precio(3000);setFiltro(!filtro)}}>Menos de 3000</p>
+        <div className='filtro2'>
+        <h1>Instrumento</h1>
+          <p onClick={()=>{filtrar_categoria("todos");setFiltro(!filtro)}}>Todos los productos</p>
+          <p onClick={()=>{filtrar_categoria("guitar");setFiltro(!filtro)}}>Guitarras</p>
+          <p onClick={()=>{filtrar_categoria("bass");setFiltro(!filtro)}}>Bajos</p>
+          <p onClick={()=>{filtrar_categoria("bateria");setFiltro(!filtro)}}>Baterías</p>
+          <p onClick={()=>{filtrar_categoria("amplificador");setFiltro(!filtro)}}>Amplificadores</p>
+        </div>
+        
+        
+        
+      </div>}
       </div>
       
     </section>

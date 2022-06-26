@@ -80,7 +80,12 @@ export default function Producto({producto}) {
                 <article className='textSoloProduct'>
                     <h1>{producto.name}</h1>    
                     <h4>$ {producto.price}</h4>
-                    <p>{producto.desc1}</p>
+                    <div className='desc'>
+                        <p>{producto.desc1}</p>
+                        <p>{producto.desc2}</p>
+                        <p>{producto.desc3}</p>
+                    </div>
+                    
                     
                     
                     <button onClick={()=>{addProductoToCart(producto)}}>Agregar al Carrito</button>
@@ -89,14 +94,7 @@ export default function Producto({producto}) {
                 
                 
             </section>
-            <section className='aboutProduct'>
-                <h1 className='titleProduct'>Sobre el producto</h1>
-                <article>
-                    <p>{producto.desc1}</p>
-                    <p>{producto.desc2}</p>
-                    <p>{producto.desc3}</p>
-                </article>
-            </section>
+            
         </section>
     )
 }

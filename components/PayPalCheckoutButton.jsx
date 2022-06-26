@@ -59,9 +59,9 @@ export default function PayPalCheckoutButton() {
         dispatch(totalPrice())}
     }
     style={{
-        color:"silver",
+        color:"blue",
         layout:"horizontal",
-        height:48,
+        height:25,
         tagline:false,
         shape:"pill"
     }}

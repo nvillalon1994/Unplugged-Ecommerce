@@ -72,17 +72,17 @@ export default function Index(){
       console.log(typeof(total))
       const [checkout,setCheckOut]= useState(false)
   return (
-    <>
+    <section className='carrito-Container'>
        
         {items.length===0?<h1 className='titleCart'>El carrito esta vacío</h1>:
-        <div>
+        <div className='carrito2'>
             <h1 className='titleCart'>Productos en carrito: {items.length}</h1>
             <table>
-                <thead>
+                <thead className='thead'>
                     <tr>
                         
                         <th>Producto</th>
-                        <th>Precio por unidad</th>
+                        <th className='precioUnidad'>Precio por unidad</th>
                         <th>Cantidad</th>
                         <th>Subtotal</th>
                         <th>Eliminar</th>
@@ -96,11 +96,13 @@ export default function Index(){
                             <p>{item.name}</p>
                         
                         </td>
-                        <td>$ {item.price}</td>
-                        <td className='amount'>
-                            <button className='btn-amount' onClick={()=>{aumentarCantidad(item)}}><IoIosAddCircleOutline/></button>
-                            <span>{item.cantidad}</span>
-                            <button className='btn-amount' onClick={()=>{dismunuirCantidad(item)}}><IoIosRemoveCircleOutline/></button>
+                        <td className='precioUnidad'>$ {item.price}</td>
+                        <td >
+                            <div className='amount'>
+                                <button className='btn-amount' onClick={()=>{aumentarCantidad(item)}}><IoIosAddCircleOutline/></button>
+                                <p>{item.cantidad}</p>
+                                <button className='btn-amount' onClick={()=>{dismunuirCantidad(item)}}><IoIosRemoveCircleOutline/></button>
+                            </div>
                         </td>
                         <td>$ {item.cantidad*item.price}</td>
                         <td>
@@ -115,11 +117,11 @@ export default function Index(){
                     </tr>)}
                     <tr className='total'>
                         <td></td>
-                        <td></td>
+                        <td className='precioUnidad'></td>
                         
                         <td>Total</td>
-                        <td>{total?<>$ {total}</>:<>$ 0</>}</td>
-                        <td>
+                        <td >{total?<p className='totalPay'>$ {total}</p>:<>$ 0</>}</td>
+                        <td className='botonPay'>
                             <PayPalCheckoutButton items={items} total ={total}/>
                         </td>
                        
@@ -132,6 +134,6 @@ export default function Index(){
         
         
         
-    </>
+    </section>
   )
 }
