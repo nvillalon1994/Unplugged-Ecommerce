@@ -1335,6 +1335,7 @@ td ,th{
   }
   .desc{
     height: 50vh;
+    
     overflow: auto;
     margin-bottom:20px ;
   }
@@ -1346,9 +1347,9 @@ td ,th{
     
   }
   .textSoloProduct h1{
-    font-size: 25px;
+    font-size: 18px;
     
-    margin: 30px 0 10px 0;
+    margin: 10px 0 10px 0;
     text-shadow: 1px 1px 2px grey;
     
     
@@ -1357,12 +1358,13 @@ td ,th{
   }
   .textSoloProduct h4{
     
-    font-size: 30px;
+    font-size: 20px;
+    margin:  0 0 9px 0;
   
   }
   .textSoloProduct p{
    
-    font-size: 15px;
+    font-size: 12px;
     
     
     
@@ -1370,8 +1372,8 @@ td ,th{
   }
   .textSoloProduct button{
     display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 5px 10px;
+    font-size: 13px;
     
   
   }
